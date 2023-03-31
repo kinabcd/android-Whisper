@@ -38,7 +38,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
 }
 
@@ -46,12 +46,12 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-ktx:1.7.0")
+    implementation("androidx.activity:activity-ktx:1.7.1")
 
-    val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
+    val composeBom = platform("androidx.compose:compose-bom:2023.05.01")
     implementation(composeBom)
     androidTestImplementation(composeBom)
     implementation("androidx.compose.ui:ui")
