@@ -1,15 +1,8 @@
-import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
-import java.util.Date
 import java.text.SimpleDateFormat
+import java.util.*
 
 val currentDate = Date()
 val sdf = SimpleDateFormat("yyyyMMdd")
-val kotlinVersion = getKotlinPluginVersion()
-val coreVersion = "1.8.0"
-val composeVersion = "1.1.1"
-val navVersion = "2.4.2"
-val lifecycleVersion = "2.4.1"
-val activityVersion = "1.4.0"
 
 plugins {
     id("com.android.application")
@@ -25,9 +18,6 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0_${sdf.format(currentDate)}"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
     }
     buildTypes {
         getByName("release") {
@@ -36,48 +26,40 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
-    productFlavors {
-    }
 
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = composeVersion
-    }
-    packagingOptions {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    lint {
-
+        kotlinCompilerExtensionVersion = "1.4.4"
     }
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("androidx.core:core-ktx:$coreVersion")
-    implementation("androidx.navigation:navigation-compose:$navVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    implementation("androidx.activity:activity-ktx:$activityVersion")
+    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.0")
 
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    implementation("androidx.compose.foundation:foundation-layout:$composeVersion")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    val composeBom = platform("androidx.compose:compose-bom:2023.03.00")
+    implementation(composeBom)
+    androidTestImplementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.material:material")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.foundation:foundation-layout")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 
 }
