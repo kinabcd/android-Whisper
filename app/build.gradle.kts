@@ -18,6 +18,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0_${sdf.format(currentDate)}"
+        setProperty("archivesBaseName", "${rootProject.name}-$versionName")
     }
     buildTypes {
         getByName("release") {
@@ -27,12 +28,12 @@ android {
         }
     }
 
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = compileOptions.targetCompatibility.toString()
     }
     buildFeatures {
         compose = true
@@ -49,7 +50,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-ktx:1.7.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
 
     val composeBom = platform("androidx.compose:compose-bom:2023.05.01")
     implementation(composeBom)
